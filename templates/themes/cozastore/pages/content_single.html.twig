@@ -1,0 +1,17 @@
+{#首页内容列表模板#}
+
+{% extends 'themes/cozastore/base.html.twig' %}
+
+{% block title %}
+    {{ contentEntity.title }}
+{% endblock %}
+
+{% block seo_meta %}
+    <meta name="description" content="{{ contentEntity.body|striptags|slice(0,60)}}"/>
+    <meta name="keywords" content="{{ contentEntity.title }}"/>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+

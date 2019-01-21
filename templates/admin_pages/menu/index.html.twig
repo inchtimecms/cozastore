@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="col-12">
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -23,7 +22,7 @@
                             <label>选择要编辑的菜单: </label>
                             <select name="menu" class="js-menu-select form-control m-input m--margin-left-10">
                                 {% for menu in menus %}
-                                    <option value="{{ menu.id }}">{{ menu.menuName }}</option>
+                                    <option value="{{ menu.id }}" {% if app.request.get("menu") == menu.id %}selected="selected"{% endif %}>{{ menu.menuName }}</option>
                                 {% endfor %}
                             </select>
                             <input class="btn btn-sm btn-secondary m--margin-left-10" type="submit" value="选择">
@@ -301,7 +300,7 @@
         function ajaxCreateMenuItem(menuItemName,menuItemUrl){
             $.ajax({
                 type: "POST",
-                url: "{{ rootUrl }}{{ path('menu_item_new_action') }}",
+                url: "{{ path('menu_item_new_action') }}",
                 data: {
                     "menuItemName": menuItemName,
                     "menuItemUrl" : menuItemUrl,
@@ -344,7 +343,7 @@
         function ajaxDeleteMenuItem(menuItemId){
             $.ajax({
                 type: "POST",
-                url: "{{ rootUrl }}{{ path('menu_item_delete_action') }}",
+                url: "{{ path('menu_item_delete_action') }}",
                 data: {
                     "menuItemId" : menuItemId
                 },
@@ -366,7 +365,7 @@
         function ajaxEditMenuItem(changeType, menuItemId, menuItemName, menuItemUrl, menuItemRate){
             $.ajax({
                 type: "POST",
-                url: "{{ rootUrl }}{{ path('menu_item_edit_action') }}",
+                url: "{{ path('menu_item_edit_action') }}",
                 data: {
                     "changeType": changeType,
                     "menuItemId" : menuItemId,
@@ -404,13 +403,13 @@
         function ajaxEditMenu(menuId,menuName){
             $.ajax({
                 type: "POST",
-                url: "{{ rootUrl }}{{ path('menu_edit_action') }}",
+                url: "{{ path('menu_edit_action') }}",
                 data: {
                     "menuId": menuId,
                     "menuName": menuName
                 },
             }).done(function(res){
-
+                window.location.reload();
             });
         }
         $(".js-save-menu").on("click", function(e){
@@ -422,12 +421,12 @@
         $(".js-delete-menu").on("click", function(e){
             $.ajax({
                 type: "POST",
-                url: "{{ rootUrl }}{{ path('menu_delete_action') }}",
+                url: "{{ path('menu_delete_action') }}",
                 data: {
                     "menuId": {{ menu.id }}
                 },
             }).done(function(res){
-
+                window.location.href = "{{ path("menu") }}";
             });
 
         });

@@ -160,6 +160,7 @@ function fetchTaxonomyEntityList(fetchTaxonomyEntityURL, element) {
 function liClick(element) {
     var refItemListHtml = '<li class="ref-li"><i class="flaticon-close" onclick="removeThisRef(this);"></i>' +
         '<span id="' + $(element).attr("id") + '" class="ref-item">' + $(element).text() + '</span></li>';
+
     //把refItemListHtml添加到refContentList
     $(element).parent("ul").parent(".input-choice-wrapper")
         .parent(".m--margin-top-10").children(".refContentList").show();
@@ -173,7 +174,7 @@ function liClick(element) {
     var postval = $(element).parent("ul").parent(".input-choice-wrapper")
         .parent(".m--margin-top-10").children("input[type=hidden]").val();
 
-    if (postval.indexOf($(element).attr("id")) === -1) {
+    if (postval !== $(element).attr("id") ) {
         //添加引用的显示及添加id到hidden Input
         $(element).parent("ul").parent(".input-choice-wrapper")
             .parent(".m--margin-top-10").children(".refContentList").children("ul").append(refItemListHtml);

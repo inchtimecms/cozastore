@@ -428,9 +428,11 @@ class ContentEntityController extends AbstractController
 
                                     //获取已存在的$taxonomyTableEntity,删除已存在的,再重新添加新的
                                     $taxonomyTableEntitys = $contentEntity->getFieldTaxonomyTableEntitys();
+
                                     foreach ($taxonomyTableEntitys as $taxonomyTableEntity) {
                                         $em->remove($taxonomyTableEntity);
                                     }
+
                                     foreach ($taxonomyEntitysArray as $item) {
 
                                         $fieldTaxonomyTableEntity = new FieldTaxonomyTableEntity();
@@ -441,6 +443,7 @@ class ContentEntityController extends AbstractController
                                         $currTaxonomyEntity = $taxonomyEntityRepository->find($item);
 
                                         $fieldTaxonomyTableEntity->setTaxonomyEntity($currTaxonomyEntity);
+
                                         $em->persist($fieldTaxonomyTableEntity);
                                     }
 

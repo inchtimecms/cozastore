@@ -1,12 +1,12 @@
 {% extends 'admin_pages/base.html.twig' %}
 
-{% block title %}菜单管理!{% endblock %}
+{% block title %}添加菜单{% endblock %}
 
 {% block subHeader %}
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title ">菜单管理</h3>
+                <h3 class="m-subheader__title ">添加菜单</h3>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
                                 <div class="m-checkbox-list">
                                     {% for contentTypeEntity in contentTypeEntitys %}
                                     <label class="m-checkbox">
-                                        <input type="checkbox" class="content-type-url" value="{{ rootUrl }}{{ path('show_content_type_list',{"id":contentTypeEntity.id }) }}">
+                                        <input type="checkbox" class="content-type-url" value="{{ path('show_content_type_contents_list',{"contentTypeMachineAlias":contentTypeEntity.contentTypeMachineAlias }) }}">
                                         <label class="content-type-name">{{ contentTypeEntity.contentTypeName }}</label>
                                         <span></span>
                                     </label>
@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="m-portlet__body">
-                        <span class="m--margin-left-30"> 保存菜单后,可在左侧添加菜单项,到菜单中.</span>
+                        <span class="m--margin-left-30"> 请先添加菜单并保存菜单后,再在左侧添加菜单项到菜单中.</span>
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">

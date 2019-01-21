@@ -106,7 +106,7 @@ class ProductTypeEntityController extends AbstractController
             }
 
             $productTypeEntity->setSalePropField($salePropArray);
-            $productTypeEntity->setPayMethods($payMethodArray);
+//            $productTypeEntity->setPayMethods($payMethodArray);
 
             $shipFeeTemplateEntity = $shipFeeTemplateEntityRepository->find($request->request->get("shipfeetemplate"));
             $productTypeEntity->setShipFeeTemplateEntity($shipFeeTemplateEntity);
@@ -188,7 +188,7 @@ class ProductTypeEntityController extends AbstractController
                 }
             }
             $productTypeEntity->setSalePropField($salePropArray);
-            $productTypeEntity->setPayMethods($payMethodArray);
+//            $productTypeEntity->setPayMethods($payMethodArray);
 
             $shipFeeTemplateEntity = $shipFeeTemplateEntityRepository->find($request->request->get("shipfeetemplate"));
             $productTypeEntity->setShipFeeTemplateEntity($shipFeeTemplateEntity);

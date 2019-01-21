@@ -114,7 +114,7 @@ class TaxonomyTypeEntityController extends AbstractController
 
     /**
      * 删除分类标签
-     * @Route("/delete/{taxonomyTypeEntity_Id}", name="taxonomy_type_entity_editAction", methods="GET|POST")
+     * @Route("/delete/{taxonomyTypeEntity_Id}", name="taxonomy_type_entity_deleteAction", methods="GET|POST")
      * @ParamConverter("taxonomyTypeEntity", class="App\Entity\TaxonomyTypeEntity", options={"id" = "taxonomyTypeEntity_Id"})
      */
     public function deleteTaxonomyTypeAction(TaxonomyTypeEntity $taxonomyTypeEntity, EntityManagerInterface $em):Response

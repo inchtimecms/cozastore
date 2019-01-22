@@ -267,14 +267,14 @@
     });
     
     /*==================================================================
-    [ Show modal1 ]*/
-    // $('.js-show-modal1').on('click',function(e){
-    //     e.preventDefault();
-    //     $('.js-modal1').addClass('show-modal1');
-    // });
-    //
-    // $('.js-hide-modal1').on('click',function(){
-    //     $('.js-modal1').removeClass('show-modal1');
-    // });
+    [ Show modal ]*/
+    $('a[id^="js-show-modal"]').on('click',function(e){
+        e.preventDefault();
+        $('.js-modal-'+ $(e.target).data("id")).addClass('show-modal');
+    });
+
+    $('button[id^="js-hide-modal"]').on('click',function(e){
+        $('.js-modal-'+ $(e.target).data("id")).removeClass('show-modal');
+    });
 
 })(jQuery);

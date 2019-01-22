@@ -12,6 +12,17 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'themes/cozastore/header.html.twig' %}
 
+    {% include 'themes/cozastore/footer.html.twig' %}
 {% endblock %}
 
+{% block base_javascripts %}
+    {{ parent() }}
+    {#当前页面得把页头MENU背景改为白色，用jquery修改吧#}
+    <script>
+        $(document).ready(function(){
+            $("header").addClass("header-v4");
+        });
+    </script>
+{% endblock %}

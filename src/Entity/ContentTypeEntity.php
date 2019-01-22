@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -75,6 +76,7 @@ class ContentTypeEntity
      * @ORM\Column(type="boolean",nullable=true, options={"default":0})
      */
     private $deleted;
+
 
     public function __construct()
     {
@@ -215,5 +217,4 @@ class ContentTypeEntity
         return $this;
     }
 
-    
 }

@@ -12,13 +12,15 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * 商品类型以外的其他内容类型显示Controller
+ */
 class ContentController extends BaseController
 {
     /**
      * 显示某个内容类型下的所有内容列表
      * id: ContentTypeEntity.id
      * @Route("/content/type/{contentTypeMachineAlias}/contents", name="show_content_type_contents_list")
-     *
      */
     public function showContentList(Request $request, ContentTypeEntity $contentTypeEntity, EntityManagerInterface $em, PaginatorInterface $paginator)
     {
@@ -26,13 +28,14 @@ class ContentController extends BaseController
         $query->setParameter("contentTypeEntity", $contentTypeEntity);
 
         /**@var ContentEntity[] $pagination**/
-        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), 15);
+        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), 8);
 
         return $this->render('themes/cozastore/pages/content_list.html.twig', [
             "paginator" => $pagination,
             "contentTypeEntity" => $contentTypeEntity,
             "system" => $this->getSystemEntity(),
-            "mainMenu" => $this->getMainMenuEntity()
+            "mainMenu" => $this->getMainMenuEntity(),
+            "baseController" => $this
         ]);
     }
 
@@ -63,17 +66,17 @@ class ContentController extends BaseController
             ]);
         }
 
-
         return $this->render('themes/cozastore/pages/content_single.html.twig', [
             "system" => $this->getSystemEntity(),
             "mainMenu" => $this->getMainMenuEntity(),
             "commentForm" => $commentForm->createView(),
-            "contentEntity" => $contentEntity
+            "contentEntity" => $contentEntity,
+            "baseController" => $this,
         ]);
     }
 
     /**
-     * 显示某分类词汇下的所有内容列表
+     * 显示某分类词汇下的所有BLOG内容列表
      * @Route("/taxonomy/{id}", name="show_taxonomy_content_list")
      */
     public function showContentListTaxonomy(Request $request, TaxonomyEntity $taxonomyEntity, PaginatorInterface $paginator)
@@ -95,8 +98,8 @@ class ContentController extends BaseController
             "taxonomyEntity" => $taxonomyEntity,
             "paginator" => $pagination,
             "system" => $this->getSystemEntity(),
-            "mainMenu" => $this->getMainMenuEntity()
+            "mainMenu" => $this->getMainMenuEntity(),
+            "baseController" => $this,
         ]);
-
     }
 }

@@ -54,7 +54,7 @@ liip_imagine:
 
                 # scale and square the image to the given dimensions
                 thumbnail:
-                    size:          [800, 800]
+                    size:          [1026, 1270]
                     mode:          outbound
                     allow_upscale: true
 

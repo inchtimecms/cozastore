@@ -54,28 +54,34 @@
                         <li>
                             <a>男装</a>
                             <ul class="sub-menu">
-                                <li><a href="/taxonomy/1">2019春装</a></li>
+                                {% for taxonomyEntity in baseController.taxonomyEntities("men") %}
+                                <li><a href="{{ path('show_taxonomy_content_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
 
                         <li>
                             <a>女装</a>
                             <ul class="sub-menu">
-                                <li><a href="/taxonomy/3">2019春装</a></li>
+                                {% for taxonomyEntity in baseController.taxonomyEntities("women") %}
+                                    <li><a href="{{ path('show_taxonomy_content_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
 
                         <li>
                             <a>配饰</a>
                             <ul class="sub-menu">
-                                <li><a href="/taxonomy/4">新款</a></li>
+                                {% for taxonomyEntity in baseController.taxonomyEntities("accessories") %}
+                                    <li><a href="{{ path('show_taxonomy_content_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
                         <li class="label1" data-label1="hot">
                             <a>2019新春</a>
                         </li>
                         <li>
-                            <a href="/content/type/article/contents">精品穿搭</a>
+                            <a href="{{ path('show_content_type_contents_list', {contentTypeMachineAlias: "article"}) }}">精品穿搭</a>
                         </li>
                     </ul>
                 </div>

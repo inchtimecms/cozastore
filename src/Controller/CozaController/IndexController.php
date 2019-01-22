@@ -32,6 +32,7 @@ class IndexController extends BaseController
             "mainMenu" => $this->getMainMenuEntity(),
             "sliderContentEntities" => $indexSliderContents,
             "productContentEntities" => $productContentEntities,
+            "baseController" => $this,
         ]);
     }
 }

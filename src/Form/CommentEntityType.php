@@ -42,7 +42,6 @@ class CommentEntityType extends AbstractType
                 "help" => "基本html标签:<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id>"
             ))
             //评论entity表单,还得要增加: 用户, contentEntity字段,此两个字段在,前台页面手动添加吧.
-            //提交后刷新页面
         ;
     }
 

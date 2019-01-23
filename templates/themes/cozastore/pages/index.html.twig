@@ -162,26 +162,11 @@
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
                         所有商品
                     </button>
-
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-                        女士
-                    </button>
-
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-                        男士
-                    </button>
-
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                        包
-                    </button>
-
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-                        鞋子
-                    </button>
-
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-                        手表
-                    </button>
+                    {% for productTypeEntity in baseController.allProductTypeEntities %}
+                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".{{ productTypeEntity.productAlias }}">
+                            {{ productTypeEntity.productTypeName }}
+                        </button>
+                    {% endfor %}
                 </div>
 
                 <div class="flex-w flex-c-m m-tb-10">
@@ -406,7 +391,7 @@
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
-                            <img src="{{ asset(productContentEntity.fieldImageTableEntitys[0].fileManagedEntity.uri) | imagine_filter('product_grid_img_thumbnail')  }}" alt="IMG-PRODUCT">
+                            <img src="{{ asset(productContentEntity.fieldImageTableEntitys[0].fileManagedEntity.uri) | imagine_filter('product_grid_img_thumbnail')  }}" alt="{{ productContentEntity.title }}">
 
                             <a href="#" id="js-show-modal-{{ productContentEntity.id }}" data-id="{{ productContentEntity.id }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                 快速查看
@@ -415,7 +400,7 @@
 
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
-                                <a href="" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                <a href="{{ path('show_product_detail', {id: productContentEntity.id}) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     {{ productContentEntity.title }}
                                 </a>
 

@@ -2,9 +2,13 @@
 
 namespace App\Controller\CozaController;
 
+use App\Entity\ContentEntity;
+use App\Entity\ProductTypeEntity;
 use App\Repository\MenuEntityRepository;
+use App\Repository\ProductTypeEntityRepository;
 use App\Repository\SystemEntityRepository;
 use App\Repository\TaxonomyTypeEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BaseController extends AbstractController
@@ -15,11 +19,21 @@ class BaseController extends AbstractController
 
     private $taxonomyTypeEntityRepo;
 
+    private $em;
+
+    private $productTypeEntityRepository;
+
     public function __construct(SystemEntityRepository $systemEntityRepository,
                                 TaxonomyTypeEntityRepository $taxonomyTypeEntityRepository,
+                                ProductTypeEntityRepository $productTypeEntityRepository,
+                                EntityManagerInterface $em,
                                 MenuEntityRepository $menuEntityRepository)
     {
         $this->taxonomyTypeEntityRepo = $taxonomyTypeEntityRepository;
+
+        $this->em = $em;
+
+        $this->productTypeEntityRepository = $productTypeEntityRepository;
 
         $this->systemEntity = $systemEntityRepository->find(1);
 
@@ -54,5 +68,28 @@ class BaseController extends AbstractController
         $taxonomyEntities = $taxonomyTypeEntity->getTaxonomyEntitys();
 
         return $taxonomyEntities;
+    }
+
+    /**
+     * 随机查找指定数量的商品
+     */
+    public function getRandomProducts(int $number){
+
+        /** @var ContentEntity[] $productContentEntities **/
+        $productContentEntities = $this->em->createQuery("SELECT c FROM App\Entity\ContentEntity c JOIN c.contentTypeEntity t JOIN t.productTypeEntity p WHERE p.id IS NOT NULL ORDER BY RAND()")
+            ->setMaxResults($number)
+            ->getResult();
+
+        return $productContentEntities;
+    }
+
+    /**
+     * 查找所有的商品类型，用于页面顶部过滤分类
+     */
+    public function getAllProductTypeEntities(){
+        /**@var ProductTypeEntity[] $productTypeEntities**/
+        $productTypeEntities = $this->productTypeEntityRepository->findAll();
+
+        return $productTypeEntities;
     }
 }

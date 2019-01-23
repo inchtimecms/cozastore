@@ -49,7 +49,8 @@ class ContactFormController extends BaseController
             "contactFormTypeEntity" => $contactFormTypeEntity,
             "contactForm" => $form->createView(),
             "system" => $this->getSystemEntity(),
-            "mainMenu" => $this->getMainMenuEntity()
+            "mainMenu" => $this->getMainMenuEntity(),
+            "baseController" => $this
         ]);
     }
 

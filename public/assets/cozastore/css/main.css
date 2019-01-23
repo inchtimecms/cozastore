@@ -3330,3 +3330,45 @@ input.num-product::-webkit-inner-spin-button {
   }
 
 }
+
+article {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0px 3px 38px -13px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 3px 38px -13px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 38px -13px rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px; }
+article h2 {
+  font-weight: 400;
+  margin-bottom: 15px; }
+article h2 a {
+  color: #303133; }
+article .admin span {
+  font-size: 12px;
+  color: #303133; }
+article p.author-wrap {
+  line-height: 40px;
+  position: relative;}
+article p.author-wrap .author-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
+article p.author-wrap .author {
+  padding-left: 50px;
+  color: #303133;
+  font-size: 14px; }
+article p.comment{
+  padding-left: 50px;
+  margin: 10px 0;
+}

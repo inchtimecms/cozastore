@@ -26,7 +26,7 @@
                             注册账户
                         </a>
                     {% endif %}
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
+                    <a href="{{ path('contact_form_show',{formTypeAlias: 'contact'} ) }}" class="flex-c-m trans-04 p-lr-25">
                         联系我们
                     </a>
                     <a href="#" class="flex-c-m trans-04 p-lr-25">
@@ -55,7 +55,7 @@
                             <a>男装</a>
                             <ul class="sub-menu">
                                 {% for taxonomyEntity in baseController.taxonomyEntities("men") %}
-                                <li><a href="{{ path('show_taxonomy_content_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
+                                <li><a href="{{ path('show_taxonomy_product_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -64,7 +64,7 @@
                             <a>女装</a>
                             <ul class="sub-menu">
                                 {% for taxonomyEntity in baseController.taxonomyEntities("women") %}
-                                    <li><a href="{{ path('show_taxonomy_content_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
+                                    <li><a href="{{ path('show_taxonomy_product_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -73,14 +73,11 @@
                             <a>配饰</a>
                             <ul class="sub-menu">
                                 {% for taxonomyEntity in baseController.taxonomyEntities("accessories") %}
-                                    <li><a href="{{ path('show_taxonomy_content_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
+                                    <li><a href="{{ path('show_taxonomy_product_list', {id: taxonomyEntity.id}) }}">{{ taxonomyEntity.taxonomyWord }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
                         <li class="label1" data-label1="hot">
-                            <a>2019新春</a>
-                        </li>
-                        <li>
                             <a href="{{ path('show_content_type_contents_list', {contentTypeMachineAlias: "article"}) }}">精品穿搭</a>
                         </li>
                     </ul>

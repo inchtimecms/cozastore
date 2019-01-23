@@ -133,3 +133,24 @@ liip_imagine:
                     size:          [800, 400]
                     mode:          outbound
                     allow_upscale: true
+
+        content_list_product_thumbnail:
+
+            # set your image quality defaults
+            jpeg_quality:          100
+            png_compression_level: 8
+
+            # setup the filter steps to apply for this transformation
+            filters:
+
+                # auto rotate the image using EXIF metadata
+                auto_rotate: ~
+
+                # strip the image of all metadata
+                strip: ~
+
+                # scale and square the image to the given dimensions
+                thumbnail:
+                    size:          [90, 110]
+                    mode:          outbound
+                    allow_upscale: true

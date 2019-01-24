@@ -4,33 +4,17 @@
         <div class="row">
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    分类标签
+                    商品分类
                 </h4>
 
                 <ul>
+                    {% for productTypeEntity in baseController.allProductTypeEntities %}
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            女士
+                        <a href="{{ path('show_product_type_products_list', {id:productTypeEntity.id}) }}" class="stext-107 cl7 hov-cl1 trans-04">
+                            {{ productTypeEntity.productTypeName }}
                         </a>
                     </li>
-
-                    <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            男士
-                        </a>
-                    </li>
-
-                    <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            鞋子
-                        </a>
-                    </li>
-
-                    <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            手表
-                        </a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
 
@@ -138,9 +122,8 @@
 
             <p class="stext-107 cl6 txt-center">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> 版权所有 | 页面模板来自 <i class="icon-heart" aria-hidden="true"></i> <a href="https://colorlib.com" target="_blank">Colorlib</a><br>
+                此网站使用<a href="http://www.seasaltlink.com/" target="_blank">InchTimeCMS 版本号: {{ system_version }}</a>构建
             </p>
         </div>
     </div>

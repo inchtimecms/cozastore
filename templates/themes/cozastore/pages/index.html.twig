@@ -499,7 +499,9 @@
                             </p>
 
                             <!--  -->
-                            <div class="p-t-33">
+                            <div class="p-t-33 js-product-info">
+
+                                <div class="hidden js-sale-props-value" data-value="{{ productContentEntity.fieldProductPropsTableEntity.fieldProductPropsValue|json_encode }}"></div>
 
                                 {% if productContentEntity.fieldProductPropsTableEntity.group1PropsJson %}
                                     {% set group1props = productContentEntity.fieldProductPropsTableEntity.group1PropsJson %}
@@ -599,3 +601,7 @@
 
 {% endblock %}
 
+{% block base_javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/cozastore/js/product.js') }}"></script>
+{% endblock %}

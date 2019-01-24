@@ -2,6 +2,7 @@
 
 namespace App\Controller\CozaController;
 
+use App\Entity\CartEntity;
 use App\Entity\ContentEntity;
 use App\Entity\ProductTypeEntity;
 use App\Repository\MenuEntityRepository;
@@ -91,5 +92,19 @@ class BaseController extends AbstractController
         $productTypeEntities = $this->productTypeEntityRepository->findAll();
 
         return $productTypeEntities;
+    }
+
+    /**
+     * 获取当前用户购物车中商品数量
+     */
+    public function getCurrUserCartItemNumber(){
+        $user = $this->getUser();
+        //过滤已结算过的商品
+        /**@var CartEntity[] $cartEntities**/
+        $cartEntities = $this->em->createQuery("SELECT c FROM App\Entity\CartEntity c WHERE c.buyer = :user AND c.boolChecked = false ORDER BY c.id DESC")
+            ->setParameter("user", $user)
+            ->getResult();
+
+        return sizeof($cartEntities);
     }
 }

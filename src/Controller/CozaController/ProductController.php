@@ -4,6 +4,7 @@ namespace App\Controller\CozaController;
 
 use App\Entity\CommentEntity;
 use App\Entity\ContentEntity;
+use App\Entity\ProductTypeEntity;
 use App\Entity\TaxonomyEntity;
 use App\Form\CommentEntityType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -72,6 +73,23 @@ class ProductController extends BaseController
         return $this->render('themes/cozastore/pages/product_detail.html.twig', [
             "productEntity" => $productEntity,
             "commentForm" => $commentForm->createView(),
+            "system" => $this->getSystemEntity(),
+            "mainMenu" => $this->getMainMenuEntity(),
+            "baseController" => $this,
+        ]);
+    }
+
+    /**
+     * 显示某个商品类型下的所有商品
+     * @Route("/product/type/{id}", name="show_product_type_products_list")
+     */
+    public function showProductTypeList(ProductTypeEntity $productTypeEntity)
+    {
+        $productContentEntities = $productTypeEntity->getContentTypeEntity()->getContentEntitys();
+
+        return $this->render('themes/cozastore/pages/product_list.html.twig', [
+            "productTypeEntity" => $productTypeEntity,
+            "productContentEntities" => $productContentEntities,
             "system" => $this->getSystemEntity(),
             "mainMenu" => $this->getMainMenuEntity(),
             "baseController" => $this,

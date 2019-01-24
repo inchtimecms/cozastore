@@ -88,7 +88,10 @@
                         </p>
 
                         <!--  -->
-                        <div class="p-t-33">
+                        <form class="js-add-cart-form" data-action="{{ path('add_to_cart') }}" method="post">
+                        <div class="p-t-33 js-product-info">
+
+                            <div class="hidden js-sale-props-value" data-value="{{ productEntity.fieldProductPropsTableEntity.fieldProductPropsValue|json_encode }}"></div>
 
                             {% if productEntity.fieldProductPropsTableEntity.group1PropsJson %}
                                 {% set group1props = productEntity.fieldProductPropsTableEntity.group1PropsJson %}
@@ -101,7 +104,7 @@
                                         <div class="rs1-select2 bor8 bg0">
 
                                             <select class="js-select2" name="group1prop-select">
-                                                <option>请选择一个{{ productEntity.contentTypeEntity.productTypeEntity.salePropField[0].title }}</option>
+                                                <option value="">请选择一个{{ productEntity.contentTypeEntity.productTypeEntity.salePropField[0].title }}</option>
                                                 {% for group1ItemPropKey,group1ItemPropValues in group1props %}
                                                     {% for group1Item in group1ItemPropValues %}
                                                         <option data-img="{{ asset(group1Item.largeimage) }}" value="{{ group1Item.name }}">{{ group1Item.name }} {{ group1Item.commit }}</option>
@@ -125,7 +128,7 @@
                                     <div class="size-204 respon6-next">
                                         <div class="rs1-select2 bor8 bg0">
                                             <select class="js-select2" name="group2prop-select">
-                                                <option>请选择一个{{ productEntity.contentTypeEntity.productTypeEntity.salePropField[1].title }}</option>
+                                                <option value="">请选择一个{{ productEntity.contentTypeEntity.productTypeEntity.salePropField[1].title }}</option>
                                                 {% for group2ItemPropKey,group2ItemPropValues in group2props %}
                                                     {% for group2Item in group2ItemPropValues %}
                                                         <option value="{{ group2Item.name }}">{{ group2Item.name }}</option>
@@ -137,6 +140,7 @@
                                     </div>
                                 </div>
                             {% endif %}
+
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-204 flex-w flex-m respon6-next">
                                     <div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -150,14 +154,16 @@
                                             <i class="fs-16 zmdi zmdi-plus"></i>
                                         </div>
                                     </div>
-
+                                    <input type="hidden" name="product-entity" value="{{ productEntity.id }}">
+                                    <input type="hidden" name="token" value="{{ csrf_token("add_to_cart") }}">
                                     <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                         添加到购物车
                                     </button>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                        </form>
                         {#<!-- 分享 -->#}
                         {#<div class="flex-w flex-m p-l-100 p-t-40 respon7">#}
                         {#<div class="flex-m bor9 p-r-10 m-r-11">#}
@@ -408,9 +414,10 @@
                                 <p class="stext-102 cl3 p-t-23">
                                     {{ productContentEntity.fieldTextTableEntitys[0].fieldTableValue }}
                                 </p>
-
                                 <!--  -->
-                                <div class="p-t-33">
+                                <div class="p-t-33 js-product-info">
+
+                                    <div class="hidden js-sale-props-value" data-value="{{ productContentEntity.fieldProductPropsTableEntity.fieldProductPropsValue|json_encode }}"></div>
 
                                     {% if productContentEntity.fieldProductPropsTableEntity.group1PropsJson %}
                                         {% set group1props = productContentEntity.fieldProductPropsTableEntity.group1PropsJson %}
@@ -512,6 +519,7 @@
 
 {% block base_javascripts %}
     {{ parent() }}
+    <script src="{{ asset('assets/cozastore/js/product.js') }}"></script>
     {#当前页面得把页头MENU背景改为白色，用jquery修改吧#}
     <script>
         $(document).ready(function(){

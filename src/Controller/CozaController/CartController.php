@@ -21,8 +21,32 @@ class CartController extends BaseController
      */
     public function addToCart(Request $request, ContentEntityRepository $contentEntityRepository, EntityManagerInterface $em)
     {
+        /**@var UserEntity $user * */
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->json(array("message" => "用户未登录", "loginPath" => $this->generateUrl("fos_user_security_login")), 403);
+        }
+
         if ($this->isCsrfTokenValid("add_to_cart", $request->request->get("token"))) {
             $user = $this->getUser();
+
+            //添加购物车时先判断当前用户的购物车里是否已经有选中属性的商品
+            /**@var CartEntity $result **/
+            $result = $em->createQuery("SELECT c FROM App\Entity\CartEntity c WHERE c.productContentEntity = :productContentEntity AND c.choiceSaleProp = :choiceSaleProp AND c.buyer = :buyer")
+                ->setParameter("productContentEntity",$contentEntityRepository->find($request->request->get("product-entity")))
+                ->setParameter("choiceSaleProp", $request->request->get("group1prop-select") . " " . $request->request->get("group2prop-select"))
+                ->setParameter("buyer", $user)
+                ->getOneOrNullResult();
+
+            if ($result !== null){
+                $newNumber = $result->getNumber() + 1 ;
+                $result->setNumber($newNumber);
+                $result->setChangeAt(new \DateTime());
+                $em->persist($result);
+                $em->flush();
+                return $this->json(array("message" => "商品已成功加入购物车！"), 200);
+            }
+
             $cartEntity = new CartEntity();
             $cartEntity->setCreateAt(new \DateTime());
             $cartEntity->setBoolChecked(false);
@@ -36,9 +60,9 @@ class CartController extends BaseController
             $em->persist($cartEntity);
             $em->flush();
 
-            return $this->json(array("message"=>"商品已成功加入购物车！"), 200);
-        }else{
-            return $this->json(array("message"=>"token错误,请刷新页面后再次添加购物车。"), 403);
+            return $this->json(array("message" => "商品已成功加入购物车！"), 200);
+        } else {
+            return $this->json(array("message" => "token错误,请刷新页面后再次添加购物车。"), 403);
         }
     }
 
@@ -48,31 +72,18 @@ class CartController extends BaseController
      */
     public function showCartList(EntityManagerInterface $em)
     {
-        /**@var UserEntity $user**/
+        /**@var UserEntity $user * */
         $user = $this->getUser();
-        if (!$user){
+        if (!$user) {
             return $this->redirectToRoute("fos_user_security_login");
         }
         //过滤已结算过的商品
-        /**@var CartEntity[] $cartEntities**/
+        /**@var CartEntity[] $cartEntities * */
         $cartEntities = $em->createQuery("SELECT c FROM App\Entity\CartEntity c WHERE c.buyer = :user AND c.boolChecked = false ORDER BY c.id DESC")
             ->setParameter("user", $user)
             ->getResult();
-//        $cartEntitiesDataArray = array();
-//        foreach ($cartEntities as $cartEntity){
-//            $cartItemData = array(
-//                "id" => $cartEntity->getId(),
-//                "productContentTitle" => $cartEntity->getProductContentEntity()->getTitle(),
-//                "productContentImg" => $cartEntity->getProductContentEntity()->getFieldImageTableEntitys()->first()->getFileManagedEntity()->getUri(),
-//                "productContentId" => $cartEntity->getProductContentEntity()->getId(),
-//                "productSalePropValue" => $cartEntity->getProductContentEntity()->getFieldProductPropsTableEntity()->getFieldProductPropsValue(),
-//                "productChoiceProp" => $cartEntity->getChoiceSaleProp(),
-//                "number" => $cartEntity->getNumber(),
-//            );
-//            array_push($cartEntitiesDataArray, $cartItemData);
-//        }
 
-        return $this->render("themes/cozastore/pages/cart.html.twig",[
+        return $this->render("themes/cozastore/pages/cart.html.twig", [
             "baseController" => $this,
             "cartEntities" => $cartEntities,
             "system" => $this->getSystemEntity(),

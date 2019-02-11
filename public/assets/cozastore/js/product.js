@@ -88,7 +88,11 @@
         }).done(function (response) {
             swal("成功了!", response.message, "success");
         }).fail(function (jqXHR){
-            swal("出错了!", jqXHR.responseJSON.message, "error");
+            if (jqXHR.responseJSON.message === "用户未登录"){
+                window.location.href= jqXHR.responseJSON.loginPath;
+            }else{
+                swal("出错了!", jqXHR.responseJSON.message, "error");
+            }
         });
 
     });

@@ -80,7 +80,7 @@
                     <div class="form-group m-form__group">
                         <label for="" id="shipmethodlabel">发货方式：</label>
 
-                        {% set data = shipFeeTemplateEntity.shipMethods|json_decode %}
+                        {% set data = shipFeeTemplateEntity.shipMethods %}
                         {% for item in data %}
                         <div class="m-checkbox-list">
                             {% for key,body in item %}

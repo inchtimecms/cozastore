@@ -358,6 +358,9 @@
     <script>
         $(document).ready(function(){
             $("header").addClass("header-v4");
+            $('.js-show-cart').on('click',function(e){
+                window.location.href= $(e.target).data("cart");
+            });
         });
     </script>
 {% endblock %}

@@ -57,6 +57,11 @@ class ShipFeeTemplateEntity
      */
     private $shipMethods=[];
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $boolDefault;
+
     public function getId()
     {
         return $this->id;
@@ -142,6 +147,18 @@ class ShipFeeTemplateEntity
     public function setShipMethods($shipMethods): self
     {
         $this->shipMethods = $shipMethods;
+
+        return $this;
+    }
+
+    public function getBoolDefault(): ?bool
+    {
+        return $this->boolDefault;
+    }
+
+    public function setBoolDefault(?bool $boolDefault): self
+    {
+        $this->boolDefault = $boolDefault;
 
         return $this;
     }

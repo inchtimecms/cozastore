@@ -35,7 +35,7 @@
             }
         });
 
-        //处理总价
+        //处理商品总价
         let priceSpan = $(".table-shopping-cart .table_row td.column-5 span")
 
         let products_price = 0;
@@ -45,6 +45,34 @@
 
         $("span.products-price span").text( parseFloat(products_price).toFixed(2) );
 
+        //处理加运费后的总价
+        $("span.total_price").text($("span.products-price span").text());
+
+        //立即结算按钮点击后弹出对话框
+        $("button#check_order").on("click",function(e){
+            e.preventDefault();
+            swal("说明!", "结算时使用支付宝或微信支付功能为付费功能,请联系微信：3300476467 ", "info");
+
+            //提交Ajax创建结算订单
+            var form = $("form#cart-form");
+            console.log(form.serializeArray());
+            console.log(form.data("action"));
+            $.ajax({
+                type: "POST",
+                data: form.serializeArray(),
+                url: form.data("action")
+            }).done(function (response) {
+                console.log(response);
+                // swal("成功了!", response.message, "success");
+            }).fail(function (jqXHR){
+                // if (jqXHR.responseJSON.message === "用户未登录"){
+                //     window.location.href= jqXHR.responseJSON.loginPath;
+                // }else{
+                //    swal("出错了!", jqXHR.responseJSON.message, "error");
+                // }
+            });
+
+        });
 
     });
 

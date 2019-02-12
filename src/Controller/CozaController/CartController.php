@@ -6,6 +6,7 @@ namespace App\Controller\CozaController;
 use App\Entity\CartEntity;
 use App\Entity\UserEntity;
 use App\Repository\ContentEntityRepository;
+use App\Repository\UserAddressEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,7 +71,7 @@ class CartController extends BaseController
      * 前台显示购物车,使用Ajax获取购物车中商品列表
      * @Route("/show/cart/list", name="show_cart_list")
      */
-    public function showCartList(EntityManagerInterface $em)
+    public function showCartList(EntityManagerInterface $em, UserAddressEntityRepository $addressEntityRepository)
     {
         /**@var UserEntity $user * */
         $user = $this->getUser();
@@ -83,11 +84,15 @@ class CartController extends BaseController
             ->setParameter("user", $user)
             ->getResult();
 
+        //获取当前用户所有的收货地址
+        $userAddressEntities = $addressEntityRepository->findBy(array("userEntity" => $user));
+
         return $this->render("themes/cozastore/pages/cart.html.twig", [
             "baseController" => $this,
             "cartEntities" => $cartEntities,
             "system" => $this->getSystemEntity(),
             "mainMenu" => $this->getMainMenuEntity(),
+            "userAddressEntities" => $userAddressEntities
         ]);
     }
 
